@@ -4,7 +4,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.title}+" hi"</h1>
+        <h1>{this.props.title}</h1>
         <p>{this.props.subtitle}</p>
       </div>
     );
@@ -48,8 +48,13 @@ class AddOption extends Component {
 }
 
 class Options extends Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+
   handleRemoveAll() {
-    alert('remove all');
+    console.log(this.props.options);
   }
 
   render() {
@@ -77,8 +82,8 @@ class Option extends Component {
 
 class App extends Component {
   render() {
-    const title = "Indecision App";
-    const subtitle = "Put your decisions in the hands of this app :3";
+    const title = 'Indecision App';
+    const subtitle = 'Put your decisions in the hands of this app :3';
     const options = ['Thing 1', 'Thing 2', 'Thing 3', 'Thing 4'];
 
     return (

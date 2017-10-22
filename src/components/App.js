@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <div className="main">
         <Header title={title} subtitle={subtitle} />
-        <p>This is a sample component</p>
+
         <Action
           handlePickOption={this.handlePickOption}
           hasOptions={this.state.options.length > 0}
@@ -69,31 +69,27 @@ class App extends Component {
   }
 }
 
-class Header extends Component {
-  render() {
-    return (
-      <div>
-        <h1>{this.props.title}</h1>
-        <p>{this.props.subtitle}</p>
-      </div>
-    );
-  }
-}
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <p>{props.subtitle}</p>
+    </div>
+  );
+};
 
-class Action extends Component {
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.props.handlePickOption}
-          disabled={!this.props.hasOptions}
-        >
-          What should I do?
-        </button>
-      </div>
-    );
-  }
-}
+const Action = (props) => {
+  return (
+    <div>
+      <button
+        onClick={props.handlePickOption}
+        disabled={!props.hasOptions}
+      >
+        What should I do?
+      </button>
+    </div>
+  );
+};
 
 class AddOption extends Component {
   constructor(props) {
@@ -133,28 +129,24 @@ class AddOption extends Component {
   }
 }
 
-class Options extends Component {
-  render() {
-    return (
-      <div>
-        <p>List of the things you have to do.</p>
-        <ul>
-          {
-            this.props.options.map((option, index) => <Option option={option} key={index} />)
-          }
-        </ul>
-        <button onClick={this.props.handleDeleteOptions}>Remove all</button>
-      </div>
-    );
-  }
-}
+const Options = (props) => {
+  return (
+    <div>
+      <p>List of the things you have to do.</p>
+      <ul>
+        {
+          props.options.map((option, index) => <Option option={option} key={index} />)
+        }
+      </ul>
+      <button onClick={props.handleDeleteOptions}>Remove all</button>
+    </div>
+  );
+};
 
-class Option extends Component {
-  render() {
-    return (
-      <li>{this.props.option}</li>
-    );
-  }
-}
+const Option = (props) => {
+  return (
+    <li>{props.option}</li>
+  );
+};
 
 export default App;

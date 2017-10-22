@@ -10,7 +10,7 @@ class App extends Component {
     this.handleAddOption = this.handleAddOption.bind(this);
 
     this.state = {
-      options: []
+      options: props.options
     };
   }
 
@@ -46,12 +46,11 @@ class App extends Component {
   }
 
   render() {
-    const title = 'Indecision App';
     const subtitle = 'Put your decisions in the hands of this app :3';
 
     return (
       <div className="main">
-        <Header title={title} subtitle={subtitle} />
+        <Header subtitle={subtitle} />
 
         <Action
           handlePickOption={this.handlePickOption}
@@ -69,13 +68,21 @@ class App extends Component {
   }
 }
 
+App.defaultProps = {
+  options: []
+};
+
 const Header = (props) => {
   return (
     <div>
-      <h1>{props.title}</h1>
-      <p>{props.subtitle}</p>
+      <h1>{ props.title }</h1>
+      { props.subtitle && <p>{ props.subtitle }</p>}
     </div>
   );
+};
+
+Header.defaultProps = {
+  title: 'The Indecision App'
 };
 
 const Action = (props) => {

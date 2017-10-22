@@ -8,16 +8,41 @@ class App extends Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePickOption = this.handlePickOption.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
     this.state = {
       options: props.options
     };
   }
 
+  componentDidMount() {
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+
+      if (options) {
+        this.setState(() => ( { options } ));
+      }
+    } catch (e) {
+      // do nothing
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.options.length !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+    }
+  }
+
   handleDeleteOptions() {
-    this.setState(() => {
+    this.setState(() => ({ options: [] }));
+  }
+
+  handleDeleteOption(option) {
+    this.setState((prevState) => {
       return {
-        options: []
+        options: prevState.options.filter((item) => item !== option )
       };
     });
   }
@@ -36,11 +61,9 @@ class App extends Component {
       return 'This option already exists';
     }
 
-    this.setState((state) => {
-      let prevState = state;
-      prevState.options.push(option);
+    this.setState((prevState) => {
       return {
-        options: prevState.options
+        options: prevState.options.concat(option)
       };
     });
   }
@@ -59,6 +82,7 @@ class App extends Component {
         <Options
           handleDeleteOptions={this.handleDeleteOptions}
           options={this.state.options}
+          handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption
           handleAddOption={this.handleAddOption}
@@ -114,13 +138,11 @@ class AddOption extends Component {
     const option = e.target.elements.option.value.trim();
     const error = this.props.handleAddOption(option);
 
-    this.setState(() => {
-      return {
-        error
-      };
-    });
+    this.setState(() => ({ error }));
 
-    e.target.elements.option.value = '';
+    if (!error) {
+      e.target.elements.option.value = '';
+    }
   }
 
   render() {
@@ -142,7 +164,13 @@ const Options = (props) => {
       <p>List of the things you have to do.</p>
       <ul>
         {
-          props.options.map((option, index) => <Option option={option} key={index} />)
+          props.options.map((option, index) => (
+            <Option
+              option={option}
+              key={index}
+              handleDeleteOption={props.handleDeleteOption}
+            />
+          ))
         }
       </ul>
       <button onClick={props.handleDeleteOptions}>Remove all</button>
@@ -152,7 +180,16 @@ const Options = (props) => {
 
 const Option = (props) => {
   return (
-    <li>{props.option}</li>
+    <li>
+      {props.option}
+      <button
+        onClick={() => {
+          props.handleDeleteOption(props.option);
+        }}
+      >
+        X
+      </button>
+    </li>
   );
 };
 

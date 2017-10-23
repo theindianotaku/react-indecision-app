@@ -11,7 +11,7 @@ class App extends Component {
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
     this.state = {
-      options: props.options
+      options: []
     };
   }
 
@@ -92,10 +92,6 @@ class App extends Component {
   }
 }
 
-App.defaultProps = {
-  options: []
-};
-
 const Header = (props) => {
   return (
     <div>
@@ -162,6 +158,7 @@ const Options = (props) => {
   return (
     <div>
       <p>List of the things you have to do.</p>
+      { props.options.length === 0 && <p>Please add an option to get started</p>}
       <ul>
         {
           props.options.map((option, index) => (

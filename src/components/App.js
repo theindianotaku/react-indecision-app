@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+import AddOption from './AddOption';
+import Options from './Options';
+import Header from './Header';
+import Action from './Action';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -91,103 +96,5 @@ class App extends Component {
     );
   }
 }
-
-const Header = (props) => {
-  return (
-    <div>
-      <h1>{ props.title }</h1>
-      { props.subtitle && <p>{ props.subtitle }</p>}
-    </div>
-  );
-};
-
-Header.defaultProps = {
-  title: 'The Indecision App'
-};
-
-const Action = (props) => {
-  return (
-    <div>
-      <button
-        onClick={props.handlePickOption}
-        disabled={!props.hasOptions}
-      >
-        What should I do?
-      </button>
-    </div>
-  );
-};
-
-class AddOption extends Component {
-  constructor(props) {
-    super(props);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-
-    this.state = {
-      error: undefined
-    };
-  }
-
-  handleOnSubmit(e) {
-    e.preventDefault();
-
-    const option = e.target.elements.option.value.trim();
-    const error = this.props.handleAddOption(option);
-
-    this.setState(() => ({ error }));
-
-    if (!error) {
-      e.target.elements.option.value = '';
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.error && <p>{this.state.error}</p>}
-        <form onSubmit={this.handleOnSubmit}>
-          <input type="text" name="option" />
-          <button type="submit">Add Option</button>
-        </form>
-      </div>
-    );
-  }
-}
-
-const Options = (props) => {
-  return (
-    <div>
-      <p>List of the things you have to do.</p>
-      { props.options.length === 0 && <p>Please add an option to get started</p>}
-      <ul>
-        {
-          props.options.map((option, index) => (
-            <Option
-              option={option}
-              key={index}
-              handleDeleteOption={props.handleDeleteOption}
-            />
-          ))
-        }
-      </ul>
-      <button onClick={props.handleDeleteOptions}>Remove all</button>
-    </div>
-  );
-};
-
-const Option = (props) => {
-  return (
-    <li>
-      {props.option}
-      <button
-        onClick={() => {
-          props.handleDeleteOption(props.option);
-        }}
-      >
-        X
-      </button>
-    </li>
-  );
-};
 
 export default App;

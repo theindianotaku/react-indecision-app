@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 
 class AddOption extends Component {
-  constructor(props) {
-    super(props);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+  state = {
+    error: undefined
+  };
 
-    this.state = {
-      error: undefined
-    };
-  }
-
-  handleOnSubmit(e) {
+  handleOnSubmit = (e) => {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim();
@@ -21,7 +16,7 @@ class AddOption extends Component {
     if (!error) {
       e.target.elements.option.value = '';
     }
-  }
+  };
 
   render() {
     return (

@@ -5,14 +5,22 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Header from './Header';
 import Action from './Action';
+import OptionModal from './OptionModal';
 
 class App extends Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
 
   handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
+  };
+
+  handleClearSelected = () => {
+    this.setState(() => ({
+      selectedOption: undefined
+    }));
   };
 
   handleDeleteOption = (option) => {
@@ -27,7 +35,9 @@ class App extends Component {
     const item = _.random(0, this.state.options.length - 1);
     const option = this.state.options[item];
 
-    alert(option);
+    this.setState(() => ({
+      selectedOption: option
+    }));
   };
 
   handleAddOption = (option) => {
@@ -83,6 +93,10 @@ class App extends Component {
         <AddOption
           handleAddOption={this.handleAddOption}
         />
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelected={this.handleClearSelected}
+        ></OptionModal>
       </div>
     );
   }

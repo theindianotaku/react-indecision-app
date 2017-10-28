@@ -24,7 +24,7 @@ class AddOption extends Component {
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleOnSubmit}>
           <input type="text" name="option" />
-          <button type="submit">Add Option</button>
+          <button className="button" type="submit">Add Option</button>
         </form>
       </div>
     );

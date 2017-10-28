@@ -4,11 +4,12 @@ const Option = (props) => (
   <li>
     {props.option}
     <button
+      className="button button--link"
       onClick={() => {
         props.handleDeleteOption(props.option);
       }}
     >
-      X
+      Remove
     </button>
   </li>
 );

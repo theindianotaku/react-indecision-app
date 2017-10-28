@@ -15,3 +15,9 @@
   font-size: $m-size;
   margin-top: $s-size;;
 }
+
+@media (max-width: $desktop-break) {
+  .header {
+    margin-bottom: $l-size;
+  }
+}

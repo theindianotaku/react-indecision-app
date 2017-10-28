@@ -1,3 +1,5 @@
-p {
-  color: red;
+$brand-color: blue;
+
+* {
+  color: $brand-color;
 }

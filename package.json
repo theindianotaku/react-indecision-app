@@ -1,8 +1,9 @@
 {
   "name": "indecision-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.2",
     "lodash": "^4.17.4",
     "node-sass-chokidar": "^0.0.3",
     "normalize.css": "^7.0.0",
@@ -16,7 +17,9 @@
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build",
+    "dev": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

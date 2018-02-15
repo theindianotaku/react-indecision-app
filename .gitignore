@@ -9,6 +9,9 @@
 # production
 /build
 
+# package lock
+package-lock.json
+
 # production CSS files
 /src/styles/*.css
 
